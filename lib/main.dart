@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/categories_screen.dart';
-import 'package:flutter_complete_guide/category_meals_screen.dart';
+import 'package:flutter_complete_guide/screens/categories_screen.dart';
+import 'package:flutter_complete_guide/screens/category_meals_screen.dart';
+import 'package:flutter_complete_guide/screens/filters_screen.dart';
+import 'package:flutter_complete_guide/screens/meal_deatail_screen.dart';
+import 'package:flutter_complete_guide/screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MubaMeal',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blue,
         accentColor: Colors.amber,
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
@@ -27,8 +30,19 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       // home: CategoriesScreen(),
       routes: {
-        '/': (ctx) => CategoriesScreen(),
-        '/category-meals': (ctx) => CategoryMealsScreen(),
+        '/': (ctx) => TabsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        "/meal-detail": (ctx) => MealDetailScreen(),
+        FiltersScreen.routName: (ctx) => FiltersScreen()
+      },
+      onGenerateRoute: (settings) {
+        print(settings.arguments);
+        return MaterialPageRoute(
+          builder: (ctx) => CategoriesScreen(),
+        );
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
       },
     );
   }
